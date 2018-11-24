@@ -1,13 +1,20 @@
-class Checkout
-    attr_reader :items
+require_relative 'printer'
 
-    def initialize
+class Checkout
+    attr_reader :items, :printer 
+
+    def initialize(printer = Printer.new)
         @items = []
+        @printer = printer 
     end
 
     def scan(item)
         items << item 
-        item 
+        printer.print_item(item) 
+    end
+
+    def print_total
+        printer.print(total)
     end
 
     def total

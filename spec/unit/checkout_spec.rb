@@ -1,16 +1,23 @@
 require 'checkout'
 
 describe Checkout do
-    subject(:checkout) { described_class.new }
+    let(:printer) { double(:printer, print: "£99.99", print_item: "£99.99") }
     let(:item) { double(:item) }
+    subject(:checkout) { described_class.new(printer) }
 
     describe "#scan" do
+        it "instructs printer to format price" do
+            expect(printer).to receive(:print_item)
+            
+            checkout.scan(item)
+        end
+
         it "can scan an item" do 
             expect(checkout).to respond_to(:scan).with(1).argument
         end
 
-        it "returns the last item scanned" do
-            expect(checkout.scan(item)).to eq(item)
+        it "returns the last item scanned correctly formatted" do
+            expect(checkout.scan(item)).to eq("£99.99")
         end
     end
 

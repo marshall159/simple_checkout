@@ -37,6 +37,6 @@ describe "Format" do
     end
 
     def and_a_correctly_formatted_price_for_the_total_can_be_returned
-        expect(@checkout.total).to eq('£3229.96') 
+        expect(@checkout.print_total).to eq('£3229.96') 
     end
 end
